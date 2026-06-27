@@ -3,78 +3,104 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ultima Calculator</title>
+  <title>Ultima Calculator — Graphing</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <main class="calculator" role="application" aria-label="Simple calculator">
-    <div class="display" id="display" aria-live="polite">0</div>
-
-    <div class="buttons" role="group" aria-label="Calculator buttons">
-      <!-- Row 1 -->
-      <button class="btn control" data-action="clear" aria-label="Clear">C</button>
-      <button class="btn control" data-action="backspace" aria-label="Backspace">⌫</button>
-      <button class="btn operator" data-value="(" aria-label="Open parenthesis">(</button>
-      <button class="btn operator" data-value=")" aria-label="Close parenthesis">)</button>
-
-      <!-- Row 2 -->
-      <button class="btn" data-value="7">7</button>
-      <button class="btn" data-value="8">8</button>
-      <button class="btn" data-value="9">9</button>
-      <button class="btn operator" data-value="/" aria-label="Divide">÷</button>
-
-      <!-- Row 3 -->
-      <button class="btn" data-value="4">4</button>
-      <button class="btn" data-value="5">5</button>
-      <button class="btn" data-value="6">6</button>
-      <button class="btn operator" data-value="*" aria-label="Multiply">×</button>
-
-      <!-- Row 4 -->
-      <button class="btn" data-value="1">1</button>
-      <button class="btn" data-value="2">2</button>
-      <button class="btn" data-value="3">3</button>
-      <button class="btn operator" data-value="-" aria-label="Subtract">−</button>
-
-      <!-- Row 5 -->
-      <button class="btn zero" data-value="0">0</button>
-      <button class="btn" data-value=".">.</button>
-      <button class="btn equals" data-action="equals" aria-label="Equals">=</button>
-      <button class="btn operator" data-value="+" aria-label="Add">+</button>
-    </div>
-  </main>
-
-  <aside class="sidebar" id="sidebar" aria-label="Tools">
-    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-menu">☰</button>
-    <div class="sidebar-content" id="sidebar-menu">
-      <h3>Tools</h3>
-      <ul class="menu">
-        <li class="menu-item active" data-tool="graphs">Graphs</li>
-        <!-- Future tools can be added here -->
-      </ul>
-
-      <section id="graphs" class="tool-panel">
-        <h4>Graphing</h4>
-        <p class="muted">Enter functions of x (e.g. sin(x), x^2 + 3x - 2). Supports: sin, cos, tan, exp, log, sqrt, abs, pow.</p>
-        <div class="graph-controls">
-          <input id="fn-input" type="text" placeholder="f(x) =" aria-label="Function expression" />
-          <button id="add-fn">Add</button>
+<body class="theme-light">
+  <div class="app-shell">
+    <main class="calculator" role="application" aria-label="Ultima calculator">
+      <div class="topbar">
+        <h1>Ultima Calculator</h1>
+        <div class="top-actions">
+          <button class="pill-btn" id="theme-toggle">Theme</button>
+          <button class="pill-btn" id="open-sidebar">Tools</button>
         </div>
-        <div class="graph-wrap">
-          <canvas id="graphCanvas" width="720" height="360" aria-label="Graph canvas"></canvas>
-          <div class="graph-side">
-            <div class="functions-list" id="functionsList"></div>
-            <div class="points-table" id="pointsTableContainer">
-              <h5>Sample points</h5>
-              <table id="pointsTable">
-                <thead><tr><th>x</th><th>y</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
+      </div>
+
+      <div class="display" id="display" aria-live="polite">0</div>
+
+      <div class="buttons" role="group" aria-label="Calculator buttons">
+        <button class="btn control" data-action="clear" aria-label="Clear">C</button>
+        <button class="btn control" data-action="backspace" aria-label="Backspace">⌫</button>
+        <button class="btn operator" data-value="(" aria-label="Open parenthesis">(</button>
+        <button class="btn operator" data-value=")" aria-label="Close parenthesis">)</button>
+
+        <button class="btn" data-value="7">7</button>
+        <button class="btn" data-value="8">8</button>
+        <button class="btn" data-value="9">9</button>
+        <button class="btn operator" data-value="/" aria-label="Divide">÷</button>
+
+        <button class="btn" data-value="4">4</button>
+        <button class="btn" data-value="5">5</button>
+        <button class="btn" data-value="6">6</button>
+        <button class="btn operator" data-value="*" aria-label="Multiply">×</button>
+
+        <button class="btn" data-value="1">1</button>
+        <button class="btn" data-value="2">2</button>
+        <button class="btn" data-value="3">3</button>
+        <button class="btn operator" data-value="-" aria-label="Subtract">−</button>
+
+        <button class="btn zero" data-value="0">0</button>
+        <button class="btn" data-value=".">.</button>
+        <button class="btn equals" data-action="equals" aria-label="Equals">=</button>
+        <button class="btn operator" data-value="+" aria-label="Add">+</button>
+      </div>
+
+      <footer class="credits">A calculator for every and anything — Ultima</footer>
+    </main>
+
+    <aside class="sidebar collapsed" id="sidebar" aria-hidden="true">
+      <header class="sidebar-header">
+        <button id="sidebar-toggle" aria-expanded="false" aria-controls="sidebar-content">☰</button>
+        <h3>Tools</h3>
+      </header>
+
+      <div id="sidebar-content" class="sidebar-content">
+        <nav class="tool-tabs" role="tablist">
+          <button class="tab active" data-tab="graphs">Graphs</button>
+          <!-- future tabs -->
+        </nav>
+
+        <section id="graphs" class="tool-panel active" role="tabpanel">
+          <label class="label">Functions of x</label>
+          <div class="graph-controls">
+            <input id="fn-input" type="text" placeholder="e.g. sin(x), x^2, exp(-x*x)" />
+            <button id="add-fn" class="accent">Add</button>
           </div>
-        </div>
-      </section>
-    </div>
-  </aside>
+
+          <div class="graph-area">
+            <div class="canvas-wrap">
+              <canvas id="graphCanvas" width="800" height="450"></canvas>
+            </div>
+            <aside class="graph-side">
+              <div class="theme-switcher">
+                <label>Theme</label>
+                <select id="theme-select">
+                  <option value="theme-light">Light</option>
+                  <option value="theme-dark">Dark</option>
+                  <option value="theme-neon">Neon</option>
+                </select>
+              </div>
+
+              <div class="functions-list" id="functionsList" aria-live="polite"></div>
+
+              <div class="points-table">
+                <h4>Sample points</h4>
+                <table id="pointsTable"><thead><tr><th>x</th><th>y</th></tr></thead><tbody></tbody></table>
+              </div>
+
+              <div class="graph-actions">
+                <button id="reset-view">Reset View</button>
+                <button id="export-png">Export PNG</button>
+              </div>
+            </aside>
+          </div>
+
+          <p class="muted">Pan: drag canvas · Zoom: mouse wheel / pinch · Double-click to reset</p>
+        </section>
+      </div>
+    </aside>
+  </div>
 
   <script src="script.js"></script>
 </body>
