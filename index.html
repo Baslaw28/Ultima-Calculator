@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simple Calculator</title>
+  <title>Ultima Calculator</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -42,6 +42,39 @@
       <button class="btn operator" data-value="+" aria-label="Add">+</button>
     </div>
   </main>
+
+  <aside class="sidebar" id="sidebar" aria-label="Tools">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-menu">☰</button>
+    <div class="sidebar-content" id="sidebar-menu">
+      <h3>Tools</h3>
+      <ul class="menu">
+        <li class="menu-item active" data-tool="graphs">Graphs</li>
+        <!-- Future tools can be added here -->
+      </ul>
+
+      <section id="graphs" class="tool-panel">
+        <h4>Graphing</h4>
+        <p class="muted">Enter functions of x (e.g. sin(x), x^2 + 3x - 2). Supports: sin, cos, tan, exp, log, sqrt, abs, pow.</p>
+        <div class="graph-controls">
+          <input id="fn-input" type="text" placeholder="f(x) =" aria-label="Function expression" />
+          <button id="add-fn">Add</button>
+        </div>
+        <div class="graph-wrap">
+          <canvas id="graphCanvas" width="720" height="360" aria-label="Graph canvas"></canvas>
+          <div class="graph-side">
+            <div class="functions-list" id="functionsList"></div>
+            <div class="points-table" id="pointsTableContainer">
+              <h5>Sample points</h5>
+              <table id="pointsTable">
+                <thead><tr><th>x</th><th>y</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </aside>
 
   <script src="script.js"></script>
 </body>
